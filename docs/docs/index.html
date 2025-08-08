@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simple Mechanic Game Prototype</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #222; color: #eee; margin: 0; padding: 20px; }
+  #garage { border: 2px solid #555; padding: 10px; width: 320px; margin: 0 auto; background: #333; border-radius: 10px; }
+  .part { background: #555; margin: 10px; padding: 15px; border-radius: 8px; cursor: pointer; text-align: center; }
+  .broken { background: #a33; }
+  #message { margin-top: 20px; min-height: 40px; }
+</style>
+</head>
+<body>
+
+<h2>Auto Mechanic Mini-Game</h2>
+<div id="garage">
+  <div class="part broken" id="engine">Engine (Broken)</div>
+  <div class="part" id="brakes">Brakes</div>
+  <div class="part broken" id="battery">Battery (Broken)</div>
+</div>
+
+<div id="message">Tap a broken part to repair it.</div>
+
+<script>
+  const message = document.getElementById('message');
+
+  function repairPart(event) {
+    const part = event.target;
+    if (part.classList.contains('broken')) {
+      part.classList.remove('broken');
+      part.textContent = part.id.charAt(0).toUpperCase() + part.id.slice(1) + " (Repaired)";
+      message.textContent = part.id.charAt(0).toUpperCase() + part.id.slice(1) + " repaired! Good job.";
+    } else {
+      message.textContent = "This part is already repaired.";
+    }
+  }
+
+  document.querySelectorAll('.part').forEach(part => {
+    part.addEventListener('click', repairPart);
+  });
+</script>
+
+</body>
+</html>
